@@ -3,6 +3,7 @@
     "license": "proprietary",
     "require": {
         "php": "^7.1.3",
+        "ext-iconv": "*",
         "symfony/console": "^4.0",
         "symfony/flex": "^1.0",
         "symfony/framework-bundle": "^4.0",
@@ -28,6 +29,12 @@
             "App\\Tests\\": "tests/"
         }
     },
+    "replace": {
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php71": "*",
+        "symfony/polyfill-php70": "*",
+        "symfony/polyfill-php56": "*"
+    },
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
@@ -45,7 +52,7 @@
     },
     "extra": {
         "symfony": {
-            "id": "01C0MYXVMFC8C0GX7YDTK5Y25Y",
+            "id": "01C7T3XTH6GQKMN2QGPPA1P619",
             "allow-contrib": false
         }
     }
