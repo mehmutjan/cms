@@ -1,0 +1,22 @@
+{% extends 'layout.html.twig' %}
+
+{% block teamlate %}
+
+  <form action="{{ path('register') }}" method="post">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="_username" value="" />
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="_password" />
+    <label for="username">Email:</label>
+    <input type="email" id="email" name="_email" />
+
+    {#If you want to control the URL the user#}
+    {#is redirected to on success (more details below)#}
+    <input type="hidden" name="_target_path" value="/login" />
+
+    <button type="submit">register</button>
+  </form>
+{% endblock %}
+
+
