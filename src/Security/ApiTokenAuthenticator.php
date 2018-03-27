@@ -2,52 +2,67 @@
 
 namespace App\Security;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 
-class TokenAuthenticator extends AbstractGuardAuthenticator
+class ApiTokenAuthenticator extends AbstractGuardAuthenticator
 {
     public function supports(Request $request)
     {
-        // todo
+        return $request->headers->has('X-AUTH-TOKEN');
     }
 
     public function getCredentials(Request $request)
     {
-        // todo
+        return array(
+            'token' => $request->headers->get('X-AUTH-TOKEN')
+        );
     }
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        // todo
+        $token = $credentials['token'];
+        if (null == $token) {
+            return;
+        }
+        return $userProvider->loadUserByUsername($token);
     }
 
     public function checkCredentials($credentials, UserInterface $user)
     {
-        // todo
+        return true;
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-        // todo
+        $data = array(
+            'message' => strtr($exception->getMessageKey(), $exception->getMessageData())
+        );
+        return new JsonResponse($data, Response::HTTP_FORBIDDEN);
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        // todo
+        return null;
     }
 
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        // todo
+        $data = array(
+            'message' => 'Authentication Required1'
+        );
+
+        return new JsonResponse($data, Response::HTTP_UNAUTHORIZED);
     }
 
     public function supportsRememberMe()
     {
-        // todo
+        return false;
     }
 }

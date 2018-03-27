@@ -1,14 +1,13 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-#        in_memory: { memory: ~ }
-        user_db_provider:
-            entity:
-                class: App\Entity\Users
+        current_user:
+            id: App\Security\CurrentUserProvider
     # 密码编码
     encoders:
         App\Entity\Users:
             algorithm: bcrypt
+        App\Security\CurrentUser: bcrypt
 
     firewalls:
         dev:
@@ -18,7 +17,11 @@ security:
             anonymous: true
             pattern: ^/
             http_basic: ~
-            provider: user_db_provider
+            provider: current_user
+
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
 
             # activate different ways to authenticate
 
@@ -31,8 +34,8 @@ security:
                 check_path: login
                 default_target_path: /
                 csrf_token_generator: security.csrf.token_manager
-                csrf_parameter: _csrf_security_token
-                csrf_token_id: _csrf_security_token_id
+#                csrf_parameter: _csrf_security_token
+#                csrf_token_id: _csrf_security_token_id
 #             https://symfony.com/doc/current/security/form_login_setup.html
 
 
@@ -43,4 +46,4 @@ security:
          - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/admin, roles: ROLE_ADMIN }
-         - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/, roles: ROLE_USER }
