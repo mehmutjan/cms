@@ -1,6 +1,7 @@
 {
     "devDependencies": {
         "@symfony/webpack-encore": "^0.17.0",
+        "babel-preset-es2017": "^6.24.1",
         "less": "^3.0.1",
         "less-loader": "^4.1.0",
         "vue": "^2.5.16",
@@ -16,6 +17,14 @@
         "build": "encore production"
     },
     "dependencies": {
+        "babel-core": "^6.26.0",
+        "babel-preset-vue": "^2.0.2",
         "npm": "^5.8.0"
+    },
+    "babel": {
+        "presets": [
+            "es2017",
+            "vue"
+        ]
     }
 }

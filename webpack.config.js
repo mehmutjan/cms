@@ -18,13 +18,14 @@ Encore
     .enableLessLoader()
     .enableVueLoader()
 
-    .configureBabel(function(babelConfig) {
-      // add additional presets
-      babelConfig.presets.push('es2017');
 
-      // no plugins are added by default, but you can add some
-      // babelConfig.plugins.push('styled-jsx/babel');
-    })
+    // .configureBabel(function(babelConfig) {
+    //   // add additional presets
+    //   babelConfig.presets.push('vue');
+    //
+    //   // no plugins are added by default, but you can add some
+    //   // babelConfig.plugins.push('styled-jsx/babel');
+    // })
     // uncomment for legacy applications that require $/jQuery as a global variable
     // .autoProvidejQuery()
 ;
