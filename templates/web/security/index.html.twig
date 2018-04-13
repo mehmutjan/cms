@@ -28,4 +28,17 @@
 
         <button type="submit">login</button>
     </form>
+  {% verbatim %}
+   <div id="app">
+   <span :about="{{message}}">{{message}}</span>
+    </div>
+  {% endverbatim %}
+{% endblock %}
+{% block javascripts %}
+  {{ parent() }}
+  <script>
+    new vue({
+      data
+    })
+  </script>
 {% endblock %}

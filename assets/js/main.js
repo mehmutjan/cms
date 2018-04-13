@@ -1,9 +1,9 @@
-
 import Vue from 'vue'
-import App from './App'
+import App from './App.vue'
+import Login from './components/Login'
 
+Vue.use(Login);
 new Vue({
   el: '#app',
-  template: '<App/>',
-  components: { App }
+  render: h => h(App)
 });

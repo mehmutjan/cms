@@ -2,6 +2,7 @@
     "devDependencies": {
         "@symfony/webpack-encore": "^0.17.0",
         "babel-preset-es2017": "^6.24.1",
+        "copy-webpack-plugin": "^4.5.1",
         "less": "^3.0.1",
         "less-loader": "^4.1.0",
         "vue": "^2.5.16",
@@ -19,7 +20,9 @@
     },
     "dependencies": {
         "babel-core": "^6.26.0",
+        "babel-loader": "^7.1.4",
         "babel-preset-vue": "^2.0.2",
+        "cache-loader": "^1.2.2",
         "codeages-design": "^0.1.6",
         "npm": "^5.8.0"
     },

@@ -16,7 +16,7 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/*'
-        exclude: '../src/{Entity,Migrations,Tests,Kernel.php}'
+        exclude: '../src/{Entity,Migrations,Tests,Kernel.php,Service}'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
@@ -27,7 +27,26 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
-    WebserviceUserProvider:
+    app.security.user.webservice_user_provider:
         class: App\Security\User\WebserviceUserProvider
         arguments:
             - '@service_container'
+
+    App\EventListener\LoginListener:
+        arguments: ['@security.token_storage', '@security.authentication.manager']
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: handle }
+
+    App\EventListener\RequestListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.request }
+
+    App\Service\:
+        resource: '../src/Service/*'
+
+    app.service.user.user_service:
+        class: App\Service\User\Impl\UserServiceImpl
+        calls:
+            - [ setContainer, ['@service_container']]
+        lazy: true
+        public: true

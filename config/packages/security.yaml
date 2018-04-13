@@ -2,7 +2,7 @@ security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         webservice:
-            id: WebserviceUserProvider
+            id: app.security.user.webservice_user_provider
         user_db_provider:
             entity:
                 class: App\Entity\User
@@ -19,19 +19,16 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            pattern:    ^/
+            pattern: ^/
             anonymous: ~
-            logout_on_user_change: ~
             # activate different ways to authenticate
 
 #             http_basic: ~
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-
             guard:
                 authenticators:
                     - App\Security\TokenAuthenticator
 
-            methods: [GET, POST]
             form_login:
                 provider: user_db_provider
                 login_path: /login
@@ -41,7 +38,7 @@ security:
                 target_path_parameter: _target_path
                 csrf_token_generator: security.csrf.token_manager
                 csrf_parameter: _csrf_security_token
-                csrf_token_id: a_private_string
+                csrf_token_id: authenticate
             remember_me:
                 secret: '%kernel.secret%'
                 lifetime: 604800 # 1 week in seconds
