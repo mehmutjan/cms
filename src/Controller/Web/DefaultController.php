@@ -14,7 +14,6 @@ class DefaultController extends BaseController
      */
     public function index(Request $request)
     {
-
         $this->getUserService()->get(1);
         return $this->render('base.html.twig');
     }
